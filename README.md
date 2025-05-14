@@ -1,55 +1,84 @@
-#Affine Cipher Implementation in C++
-Overview
-This C++ program implements the Affine Cipher, a monoalphabetic substitution cipher that encrypts and decrypts text using three keys (a, b, c). Users can:
+# Affine Cipher Implementation
 
-Encrypt a message (option A)
-Decrypt a message (option B)
-Quit the program (option C)
+This C++ program implements the Affine Cipher, a type of monoalphabetic substitution cipher where each letter in the alphabet is mapped to its numeric equivalent, encrypted using a simple mathematical function, and converted back to a letter.
 
-It validates inputs to ensure positive keys and that a and c satisfy the modular inverse condition.
-Features
+## Features
 
-Encryption: Converts plaintext to ciphertext using E(x) = (a*x + b) mod 26.
-Decryption: Recovers plaintext using D(y) = c*(y - b) mod 26.
-Input Handling: Supports spaces, ignores non-alphabetic characters, and converts input to uppercase.
-User-Friendly Interface: Prompts for choices and validates inputs (A, B, C; positive integer keys).
+- Encryption (cipher) of plaintext messages
+- Decryption (decipher) of encrypted messages
+- Input validation for cipher keys
+- Support for uppercase and lowercase letters
+- Preserves spaces in messages
+- Ignores non-alphabetic characters
 
-Usage
-Run the program and follow the prompts:
+## How to Use
 
-Select A to encrypt, B to decrypt, or C to quit.
-Enter three positive integer keys (a, b, c), ensuring (a*c) mod 26 = 1.
-Input a message (spaces preserved, non-alphabetic characters ignored).
-View the encrypted or decrypted message.
-Choose to continue (A or B) or quit (C).
+1. Compile the program using a C++ compiler:
 
-Example:
-welcome to the affine cipher , what do you want to do ? , choose A for cipher , B for decipher , C to quit
-A
-enter the three keys (a , b , c )
-5 8 21
-enter the message you want to cipher
-Hello World
-the encrypted messsage is: FJHLTKAF
-do you want to cipher another message or decipher or quit , choose A for cipher , B for decipher , C to quit
-C
-the end
+   ```bash
+   g++ affine.c++ -o affine
+   ```
 
-Limitations
+2. Run the executable:
 
-Processes only alphabetic characters (A-Z, case-insensitive) and spaces.
-Requires manual input of keys satisfying (a*c) mod 26 = 1.
-Console input only, no file input/output.
+   ```bash
+   ./affine
+   ```
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-Author
+3. Follow the menu options:
 
-[Mariam Hesham] - Computer Science Student at Cairo University
-GitHub: [mariam0905]
+   - `A`: Cipher (encrypt) a message
+   - `B`: Decipher (decrypt) a message
+   - `C`: Quit the program
 
-Acknowledgments
+4. When encrypting or decrypting, you'll need to provide three keys:
+   - `a`: First encryption key (must be coprime with 26)
+   - `b`: Second encryption key (shift value)
+   - `c`: Decryption key (modular multiplicative inverse of 'a' modulo 26)
 
-Inspired by coursework in Structured Programming at Cairo University.
-Thanks to Dr. Mohammad El-Ramly for guidance.
+## Mathematical Background
 
+The Affine Cipher uses the following formulas:
+
+- Encryption: E(x) = (ax + b) mod 26
+- Decryption: D(y) = c(y - b) mod 26
+
+Where:
+
+- x is the position of the plaintext letter (A=0, B=1, ..., Z=25)
+- y is the position of the ciphertext letter
+- a and m (26) must be coprime
+- c is the modular multiplicative inverse of a modulo m
+
+## Input Requirements
+
+1. Keys (a, b, c) must be positive integers
+2. The keys 'a' and 'c' must satisfy the condition: (a\*c) mod 26 = 1
+3. Messages can contain:
+   - Uppercase letters (A-Z)
+   - Lowercase letters (a-z)
+   - Spaces
+   - Other characters (will be ignored)
+
+## Example Usage
+
+```
+Welcome to the affine cipher, what do you want to do?
+Choose A for cipher, B for decipher, C to quit
+
+> A
+Enter the three keys (a, b, c):
+> 5 8 21
+
+Enter the message you want to cipher:
+> HELLO WORLD
+
+The encrypted message is: RCBBW JWZBS
+```
+
+## Notes
+
+- The program automatically converts all letters to uppercase during processing
+- Spaces are preserved in the output
+- Non-alphabetic characters are ignored
+- Invalid keys will prompt for re-entry
